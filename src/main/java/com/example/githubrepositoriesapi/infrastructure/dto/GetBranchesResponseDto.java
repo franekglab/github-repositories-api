@@ -1,4 +1,4 @@
 package com.example.githubrepositoriesapi.infrastructure.dto;
 
-public record GetRepositoriesByUserNameDto() {
+public record GetBranchesResponseDto(String name, String sha) {
 }

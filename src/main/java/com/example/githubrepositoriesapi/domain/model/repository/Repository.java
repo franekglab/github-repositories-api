@@ -1,4 +1,4 @@
-package com.example.githubrepositoriesapi.domain.model;
+package com.example.githubrepositoriesapi.domain.model.repository;
 
-public record Repositories(String name, Owner owner) {
+public record Repository(String name, Owner owner, boolean fork) {
 }
