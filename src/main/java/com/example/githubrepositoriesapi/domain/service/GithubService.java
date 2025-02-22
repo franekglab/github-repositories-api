@@ -37,11 +37,11 @@ public class GithubService {
         List<GetBranchesResponseDto> branchesResponse = new ArrayList<>();
 
         for (Branch branch : branches) {
-            String sha;
+            final String sha;
             if (branch.commit() != null) {
                 sha = branch.commit().sha();
             } else {
-                sha = "SHA doesn't exist";
+                sha = null;
             }
             branchesResponse.add(new GetBranchesResponseDto(branch.name(), sha));
         }
