@@ -1,23 +1,23 @@
 package com.example.githubrepositoriesapi.domain.service;
 
 import com.example.githubrepositoriesapi.domain.model.branch.Branch;
-import com.example.githubrepositoriesapi.domain.model.branch.Commit;
-import com.example.githubrepositoriesapi.domain.model.repository.Repository;
+import com.example.githubrepositoriesapi.domain.model.entity.GitRepo;
+import com.example.githubrepositoriesapi.domain.model.githubrepos.Repository;
 import com.example.githubrepositoriesapi.domain.proxy.GithubApiClient;
-import com.example.githubrepositoriesapi.infrastructure.dto.GetBranchesResponseDto;
-import com.example.githubrepositoriesapi.infrastructure.dto.GetMergedDataResponseDto;
+import com.example.githubrepositoriesapi.infrastructure.dto.response.GetBranchesResponseDto;
+import com.example.githubrepositoriesapi.infrastructure.dto.response.GetMergedDataResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class GithubService {
 
     private final GithubApiClient githubApiClient;
+    private final RepoAdder repoAdderService;
 
     public List<GetMergedDataResponseDto> getMergedData(String userName) {
         List<Repository> repositories = githubApiClient.getRepositoriesByUserName(userName);
@@ -30,6 +30,12 @@ public class GithubService {
             }
         }
         return mergedDataList;
+    }
+
+    public void saveRepositoriesToDatabase(List<GetMergedDataResponseDto> mergedDataList) {
+        for(GetMergedDataResponseDto mergedData : mergedDataList) {
+            repoAdderService.addRepoToDatabase(new GitRepo(mergedData.name(), mergedData.owner()));
+        }
     }
 
     private List<GetBranchesResponseDto> fetchBranches(String userName, String repositoryName) {

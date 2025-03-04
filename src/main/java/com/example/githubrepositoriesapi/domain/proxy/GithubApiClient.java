@@ -2,7 +2,7 @@ package com.example.githubrepositoriesapi.domain.proxy;
 
 import com.example.githubrepositoriesapi.config.Config;
 import com.example.githubrepositoriesapi.domain.model.branch.Branch;
-import com.example.githubrepositoriesapi.domain.model.repository.Repository;
+import com.example.githubrepositoriesapi.domain.model.githubrepos.Repository;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
